@@ -9,7 +9,4 @@ public class TestRunStartedData extends AbstractIdAndDescriptionSupportData {
     public TestRunStartedData(String id, Description description) {
         super(id, description);
     }
-
-    public TestRunStartedData() {
-    }
 }

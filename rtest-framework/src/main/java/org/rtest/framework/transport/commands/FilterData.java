@@ -17,8 +17,6 @@ public class FilterData extends AbstractIdSupportData {
         this.context = context;
     }
 
-    public FilterData() {
-    }
 
     public Filter getFilter() {
         return new Filter() {

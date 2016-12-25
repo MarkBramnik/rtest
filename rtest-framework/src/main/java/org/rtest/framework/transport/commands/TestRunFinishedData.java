@@ -13,9 +13,6 @@ public class TestRunFinishedData extends AbstractIdSupportData {
         this.result = result;
     }
 
-    public TestRunFinishedData() {
-    }
-
     public Result getResult() {
         return result;
     }

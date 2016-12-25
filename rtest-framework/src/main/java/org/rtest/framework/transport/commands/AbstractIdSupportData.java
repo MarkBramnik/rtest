@@ -11,8 +11,6 @@ public class AbstractIdSupportData implements RTestData {
         this.id = id;
     }
 
-    public AbstractIdSupportData() {}
-
     public String getId() {
         return id;
     }

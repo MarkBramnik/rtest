@@ -13,11 +13,6 @@ public abstract class AbstractIdAndDescriptionSupportData extends AbstractIdSupp
         this.description = description;
     }
 
-    // for serialization
-    public AbstractIdAndDescriptionSupportData() {
-
-    }
-
     public Description getDescription() {
         return description;
     }

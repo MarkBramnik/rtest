@@ -13,10 +13,6 @@ public class GotDescriptionData extends AbstractIdSupportData{
         this.description = description;
     }
 
-    public GotDescriptionData() {
-
-    }
-
 
     public Description getDescription() {
         return description;

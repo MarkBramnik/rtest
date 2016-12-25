@@ -3,6 +3,7 @@ package org.rtest.framework.transport.invoker;
 import org.rtest.exceptions.RTestException;
 import org.rtest.framework.transport.commands.RTestData;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -48,14 +49,16 @@ public class DefaultRemoteInvoker implements RemoteInvoker {
 
     @Override
     public void close() {
+        closeQuietly(out);
+        closeQuietly(in);
+        closeQuietly(socket);
+    }
+
+    private void closeQuietly(Closeable closeable) {
         try {
-            out.close();
-            in.close();
-            socket.close();
+            closeable.close();
         } catch (IOException e) {
-           throw new RTestException("Failed to close data channel", e);
+            throw new RTestException("Failed to close data channel", e);
         }
-
-
     }
 }

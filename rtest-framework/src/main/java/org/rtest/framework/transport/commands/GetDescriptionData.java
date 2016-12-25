@@ -9,6 +9,4 @@ public class GetDescriptionData extends AbstractIdSupportData {
         super(uuid);
     }
 
-    public GetDescriptionData() {}
-
 }

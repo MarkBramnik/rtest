@@ -13,13 +13,8 @@ public class SortData extends AbstractIdSupportData {
         this.sorterClassName = sorterClassName;
     }
 
-    // for deserialization
-    public SortData() {
-
-    }
-
     public Sorter getSorter()  {
-        System.out.println("not implemented yet");
-        return null;
+        // TODO: implement the better sorter
+        return Sorter.NULL;
     }
 }

@@ -9,7 +9,4 @@ public class TestFinishedData  extends AbstractIdAndDescriptionSupportData {
     public TestFinishedData(String id, Description description) {
         super(id, description);
     }
-
-    public TestFinishedData() {
-    }
 }

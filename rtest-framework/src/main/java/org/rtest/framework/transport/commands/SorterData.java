@@ -11,10 +11,6 @@ public class SorterData extends AbstractIdSupportData {
         this.sorterClassName = sorterClassName;
     }
 
-    public SorterData() {
-
-    }
-
     public String getSorter() {
         return sorterClassName;
     }

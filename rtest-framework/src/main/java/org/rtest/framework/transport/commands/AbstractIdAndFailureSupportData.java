@@ -13,9 +13,6 @@ public abstract class AbstractIdAndFailureSupportData extends AbstractIdSupportD
         this.failure = failure;
     }
 
-    public AbstractIdAndFailureSupportData() {
-
-    }
 
     public Failure getFailure() {
         return failure;

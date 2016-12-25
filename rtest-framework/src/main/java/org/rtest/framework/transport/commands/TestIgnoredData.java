@@ -10,6 +10,4 @@ public class TestIgnoredData  extends AbstractIdAndDescriptionSupportData {
         super(id, description);
     }
 
-    public TestIgnoredData() {
-    }
 }

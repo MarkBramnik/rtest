@@ -11,6 +11,4 @@ public class TestFailureData extends AbstractIdAndFailureSupportData {
         super(id, failure);
     }
 
-    public TestFailureData() {
-    }
 }

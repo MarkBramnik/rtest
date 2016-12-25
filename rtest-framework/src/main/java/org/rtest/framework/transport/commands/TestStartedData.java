@@ -10,6 +10,4 @@ public class TestStartedData  extends AbstractIdAndDescriptionSupportData {
         super(id, description);
     }
 
-    public TestStartedData() {
-    }
 }

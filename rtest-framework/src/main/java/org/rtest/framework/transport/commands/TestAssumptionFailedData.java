@@ -10,6 +10,4 @@ public class TestAssumptionFailedData extends AbstractIdAndFailureSupportData {
         super(id, failure);
     }
 
-    public TestAssumptionFailedData() {
-    }
 }

@@ -8,6 +8,6 @@ public class StartRunningData extends AbstractIdSupportData {
         super(id);
     }
 
-    public StartRunningData() {
-    }
+    /*public StartRunningData() {
+    }*/
 }
