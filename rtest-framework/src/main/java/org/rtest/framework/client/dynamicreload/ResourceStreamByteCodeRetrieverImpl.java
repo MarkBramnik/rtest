@@ -13,7 +13,7 @@ import java.io.InputStream;
  * Created by Mark Bramnik on 17/11/2016.
  */
 public class ResourceStreamByteCodeRetrieverImpl implements ByteCodeRetriever {
-    private final static byte [] EMPTY = new byte[0];
+    final static byte [] EMPTY = new byte[0];
 
     private static final Logger LOG = LoggerFactory.getLogger(ResourceStreamByteCodeRetrieverImpl.class);
 
