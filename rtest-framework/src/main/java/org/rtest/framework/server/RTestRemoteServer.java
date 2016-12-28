@@ -23,6 +23,9 @@ import java.util.concurrent.Executors;
  * Created by Mark Bramnik on 18/09/2016.
  */
 public class RTestRemoteServer {
+    final static int DEFAULT_PORT = 7890;
+    final static int DEFAULT_THREADS_NUMBER = 1;
+
     private Integer port;
     private Integer threadPoolSize;
     private ExecutorService executorService;
@@ -38,6 +41,15 @@ public class RTestRemoteServer {
     public RTestRemoteServer(Integer port, Integer threadPoolSize) {
         this.port = port;
         this.threadPoolSize = threadPoolSize;
+    }
+
+    /**
+     * Create the RTest server
+     * The server will be created with 1 thread on a default port (7890)
+     * Use the overloaded constructor to specify a custom port and/or custom thread number
+     */
+    public RTestRemoteServer() {
+        this(DEFAULT_PORT, DEFAULT_THREADS_NUMBER);
     }
 
     /**
