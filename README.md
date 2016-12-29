@@ -1,18 +1,28 @@
 # rtest - Remote integration testing framework for JVM applications
 
-**rtest** (_r_ stands for _remote_) is a framework for integration testing of products running on JVM.
+**rtest** (_r_ stands for _remote_) is a framework for integration testing of products running on top of JVM.
 
-The framework is developed out of beliefs gained by technical experience and takes some basic assumptions
-  
-### Beliefs:
-* Testing is a developer's friend. The test development should be **easy** and **fun**.
+Term _integration test_ denotes the type of testing intended for checking the behaviour of 
+component in the real / semi-real environment.
 
-* Rtest framework is developed for *integration* tests. For unit and system/functional tests other frameworks will work much better
 
-* The main purpose of integration test is checking the behaviour of 
-component in the real / semi-real environment, so the best way to 
-check the running component is connecting to the up-and-running application and executing the test 
-right on the JVM that runs that application.
+The framework is developed to achieve the goals based on beliefs gained by technical experience and takes some basic assumptions
+
+### Goals:
+
+
+* **The most important thing**: Tests are developer's friends. The test development should be **easy** and **fun**
+
+* Tests should run as fast as possible. The time spent to startup and run the test should be negligible 
+compared to the time it takes the business logic that is being in test to get executed
+
+* Tests should run right on the JVM of the application. Despite that, the test should not be a part of the application distribution
+and will be triggered from another JVM
+
+* Developers should be able to change and re-run the test in any possible way as many times as they want during the development process.
+ There should not be a need to restart the whole application or container that hosts the application between these changes
+
+* **Note:** Rtest framework is developed for *integration* tests. For unit and system/functional tests other frameworks will probably work much better
 
 ### Basic Assumptions:
  
@@ -26,26 +36,36 @@ right on the JVM that runs that application.
 ##### The application will benefit the most from this framework if it uses dependency injection container
 * Currently there is an integration with spring and its possible to *attach* the test to the application context,
   but again, its not a necessarily requirement. If DI container is not used in the application, the framework will work but
-  accessing the components inside the running server will be under the application developer's responsibility
+  accessing the components inside the running server will be under the application developer's responsibility.
+  The integration with other DI containers (like Google Guice) can be added later
 
-##### The framework can be seamlessly supported by any tool that runs the tests:
-* IDE for development purposes
+##### The framework should be seamlessly supported by any tool that runs the tests:
+* IDE for development purposes (IntelliJ/Eclipse/Netbeans)
 * ANT/Maven/Gradle for build
 * Programmatic invocation of test for whatever purpose
 
+In fact the invocation of the test will be transparent and they will treat the test as a regular unit test
+ 
 ##### The codebase of tests themselves should not be a part of the application distribution. Tests can be still run on top of this application
 * For example, if the application is built as a WAR file that will be deployed in production, the jar module of tests should not be a part of the WAR
 This allows really agile and fast development of test itself and doesn't bloat the distribution with unnecessary code
+
+##### There are two different JVMs involved in the testing process: the JVM that runs the test and the JVM that runs the application
+They can be on the same machine or on different machines - the framework doesn't do any assumptions in this area
+
+##### The tests can be run in parallel against the same application
+As long as the code-under-test permits such an execution there should not be any issue of doing so from the RTest framework's side.
+
 
 ### Requirements:
 
 * The JVM running the application will be of version 7 at least (java 8 is supported of course)
 * The tests themselves will be written in [Spock framework](http://spockframework.org/) So some learning curve is required
-The good news are that Spock itself is really a good tool so even if you don't know groovy, you'll be able to run spock after probably a hour of study
+Good news are that Spock itself is really a good tool so even if you don't know groovy, you'll be able to run spock after probably a hour of study
 *Later on you'll probably discover that it works better even for other types of tests ;)*
 
 >The concepts behind this framework can be easily implemented on top of Junit as well, Spock was taken solely 
->out of belief that developing tests in spock is much more easy and fun process than developing tests with JUnit (4.x at least).
+>out of belief that developing tests in spock is much easier and funnier process than developing tests with JUnit (4.x at least).
 
 * The framework _does require some change in application_ namely exposing a component that will accept remote connection on some tcp port 
 and (optionally) the folder for storing the server side test reports. Since the server side component is fully customizable,
@@ -53,15 +73,15 @@ its perfectly valid to turn it off in production/protect the port with some kind
 
 ### Basic Flow
 
-Here is a schematic high level explanation of how to use the rtest framework
+Here is a schematic high level explanation of how to does the rtest framework actually work
 
-* The architecture is a well-known client-server architecture. The application acts as a server and as such it should expose an opened port to accept connections.
+* The architecture is a well-known client-server architecture. The application acts as a server and as such it exposes an opened port to accept connections.
 
-*  The test running will always initiated on remote JVM (IDE, maven surefire plugin, and so forth) which will be referred as a client.  
-   The host/port of the remote server should be supplied through some system variables (there are defaults of course)
+*  The test running process will always initiated on remote JVM (IDE, maven surefire plugin, and so forth) which will be referred in this document as a client.  
+   The host/port of the remote server can be supplied externally but there exist reasonable defaults
    The test code will be compiled with server side classes in classpath, because the nature of test assumes that it has an access to the server side component
 
-*  When the test actually starts, the framework contacts the server and asks to run the test. Since the bytecode of the test doesn't exist on server at this point, it will supplied dynamically,
+*  When the test actually starts, the framework contacts the server and __'asks'__ to run the test. Since the bytecode of the test doesn't exist on server at this point, it will supplied dynamically,
    the framework handles this transparently
 
 *  The server runs the test and obtains the results
@@ -70,7 +90,7 @@ Here is a schematic high level explanation of how to use the rtest framework
 
 *  The client tool will render the result of test execution, like this test has been run locally and finished with the obtained result.
 
-*  Since the reports can be generated by spock as a part of the framework, they are stored on the server side, but can be requested by client after the test has actually been run.
+*  Since the reports can be generated by spock as a part of the framework, they are stored on the server side in some folder - this is really customizable, but can be requested by client after the test has actually been run.
     
     
     
@@ -167,7 +187,7 @@ If the configuration is done correctly, the test will be green.
 
 
 So what's the hassle one might ask?
-Lets slightly modify the test (ok, its not a real test, but it illustrates what actually happens)
+Lets slightly modify the test (well, of course, its not a real test, but it illustrates what actually happens)
 The server application can be up and running during these manipulations:
 
 
@@ -190,4 +210,94 @@ The server application can be up and running during these manipulations:
 
 Lets rerun the test and we'll notice that the print message has appeared on server application stdout 
 
-TODO: Add me!
+
+OK, so at this point its easy to see that from the test its possible to call any object's method available on the server side and this is a real power of this framework.
+
+But how does the server side object get's available in the from the test code?
+
+Well, there are many different ways:
+
+*  Just create the needed object by using a 'new' keyword
+*  If the object is global/singleton - just get the instance of it
+*  Get the reference to the object if the application uses "LookupObject" pattern
+
+If the application uses spring framework, then probably the components that should be tested are deployed as spring beans.
+The RTest framework can take advantage of this fact.
+
+In fact, by the time the test starts running on server, all the spring beans should be deployed and available, in other words the application context should already exist
+
+So, the framework will just connect to the existing application context and will inject all the beans to the data fields marked by **@Autowired** annotation
+
+Here is an example:
+
+
+Let's assume that the application is spring driven and there is a bean, called _calculator_
+It has the following interface:
+
+    
+    interface Calculator {
+       int add (int a, int b);
+    }
+    
+    
+And there exists some implementation of this interface that actually can cacluate a sum of two numbers _a_ and _b_ and return the result like defined in the interface
+
+The implementation is defined somewhere in Spring and is bound to application context in Runtime.
+
+
+Lets also assume that the test should check the _Calculator_ implementation component
+ 
+So the test should basically show how to do 2 new things:
+ 
+* Integrate Spring 
+* Autowire the _Calculator_ bean
+
+To integrate the Spring, a special annotation can come to the rescue:
+
+    org.rtest.spock.spring.integration.api.SpringIntegrated
+ 
+ Just add it before the specification, and it will work
+ 
+ _Note_: By default the annotation uses a special Web Application Context provider that will work only in the case of web applications running spring.
+ Its possible to supply another way to obtain the Spring's ApplicationContext, just implement the interface 
+ 
+    org.rtest.spock.spring.integration.api.ApplicationContextProvider
+    
+
+And pass this implementation to the value attribute inside "SpringIntegrated" annotation.
+
+
+After this step is done, injecting the actual Calculator bean into the test should be very easy.
+Just use a well-known _@Autowired_ field 
+
+
+The example of the whole test appears below:
+
+
+    @SpringIntegrated
+    class CalculatorBeanTest extends RemoteTestSpecification {
+    
+       @Autowired
+       Calculator calculator
+       
+      
+       def "check that the calculator can add two numbers"() {
+          expect:
+          10 = calculator.add(6,4)
+       }
+    }
+
+### RTest internal logging
+
+
+### Configuration
+
+
+
+### Reports
+TODO: Add me
+
+
+
+### A word on Dynamic reloading of the test ?
+
