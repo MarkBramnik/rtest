@@ -13,7 +13,7 @@ import spock.lang.Unroll
  */
 
 
-@SpringIntegrated(WebApplicationContextProvider.class)
+@SpringIntegrated
 class SampleIntegrationTest extends RemoteTestSpecification {
 
     @Autowired

@@ -1,5 +1,6 @@
 package org.rtest.spock.spring.integration.api;
 
+import org.rtest.spock.spring.integration.context.provider.web.WebApplicationContextProvider;
 import org.rtest.spock.spring.integration.impl.RemoteSpringAnnotationDrivenExtension;
 import org.spockframework.runtime.extension.ExtensionAnnotation;
 
@@ -17,5 +18,5 @@ import java.lang.annotation.*;
 @ExtensionAnnotation(RemoteSpringAnnotationDrivenExtension.class)
 @Documented
 public @interface SpringIntegrated {
-    Class<? extends ApplicationContextProvider> value();
+    Class<? extends ApplicationContextProvider> value() default WebApplicationContextProvider.class;
 }
