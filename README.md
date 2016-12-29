@@ -283,7 +283,7 @@ The example of the whole test appears below:
       
        def "check that the calculator can add two numbers"() {
           expect:
-          10 = calculator.add(6,4)
+          10 == calculator.add(6,4)
        }
     }
 
@@ -299,5 +299,7 @@ TODO: Add me
 
 
 
-### A word on Dynamic reloading of the test ?
+### A word on Dynamic reloading of the test
+
+### Conclusions
 
