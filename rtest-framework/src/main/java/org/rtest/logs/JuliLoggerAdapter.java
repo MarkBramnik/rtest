@@ -13,7 +13,7 @@ public class JuliLoggerAdapter implements Logger {
     }
 
     public JuliLoggerAdapter(String name) {
-        LOG = LogManager.getLogManager().getLogger(name);
+        LOG = java.util.logging.Logger.getLogger(name);
     }
 
     @Override
