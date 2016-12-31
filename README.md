@@ -24,6 +24,8 @@ and will be triggered from another JVM
 
 * **Note:** Rtest framework is developed for *integration* tests. For unit and system/functional tests other frameworks will probably work much better
 
+* The framework itself should have as least external dependencies as possible
+
 ### Basic Assumptions:
  
  
@@ -289,6 +291,17 @@ The example of the whole test appears below:
 
 ### RTest internal logging
 
+There are different logging systems currently available in the Java Universe. 
+For the internal logging of the framework itself, there are no any special assumptions about the logging system.
+Instead it tries to recognize in runtime which logging system is actually in the classpath, 
+and depending on what's available, will set up the logging adapter for the concrete system by the following algorithm:
+
+* If slf4j is available it will be used
+* Otherwise if log4j 1.x is available - it will be used
+* Otherwise java.util.logging implementation will be used as a fallback because its always available in the classpath
+
+
+The logging framework dependencies in rtest framework's are intentionally made 'optional' and therefor non-transitive.
 
 ### Configuration
 
