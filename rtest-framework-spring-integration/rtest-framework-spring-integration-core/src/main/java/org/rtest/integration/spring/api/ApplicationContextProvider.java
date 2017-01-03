@@ -1,4 +1,4 @@
-package org.rtest.spock.spring.integration.api;
+package org.rtest.integration.spring.api;
 
 import org.springframework.context.ApplicationContext;
 

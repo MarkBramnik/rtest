@@ -1,8 +1,9 @@
-package org.rtest.spock.spring.integration.impl;
+package org.rtest.integration.spring.impl;
+
 
 import org.rtest.exceptions.RTestException;
-import org.rtest.spock.spring.integration.api.ApplicationContextProvider;
-import org.rtest.spock.spring.integration.api.SpringIntegrated;
+import org.rtest.integration.spring.api.ApplicationContextProvider;
+import org.rtest.integration.spring.api.SpringIntegrated;
 import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension;
 import org.spockframework.runtime.model.FieldInfo;
 import org.spockframework.runtime.model.SpecInfo;

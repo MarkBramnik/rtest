@@ -62,21 +62,10 @@
             <artifactId>rtest-web-testapp-spring-beans</artifactId>
             <version>${project.version}</version>
         </dependency>
-
-
-
-
-        <!--<dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>-->
-        <!-- if we work with remote class loaders - we don't need this dependency,
-         it will be resolved in runtime -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.rtest</groupId>
-            <artifactId>rtest-web-testapp-sample-integration-tests</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>test-jar</type>
-        </dependency>-->
+            <artifactId>rtest-framework-spring-integration-web</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -1,4 +1,4 @@
-package org.rtest.spock.spring.integration.impl;
+package org.rtest.integration.spring.impl;
 
 import org.rtest.exceptions.RTestException;
 import org.spockframework.runtime.extension.IMethodInterceptor;

@@ -242,7 +242,7 @@ It has the following interface:
     }
     
     
-And there exists some implementation of this interface that actually can cacluate a sum of two numbers _a_ and _b_ and return the result like defined in the interface
+And there exists some implementation of this interface that actually can calculate a sum of two numbers _a_ and _b_ and return the result like defined in the interface
 
 The implementation is defined somewhere in Spring and is bound to application context in Runtime.
 
@@ -254,16 +254,48 @@ So the test should basically show how to do 2 new things:
 * Integrate Spring 
 * Autowire the _Calculator_ bean
 
-To integrate the Spring, a special annotation can come to the rescue:
+In order to integration the Spring there are two different options:
 
-    org.rtest.spock.spring.integration.api.SpringIntegrated
+* Use a bound  spring web integration module to obtain an application context from 
+ Spring's ContextLoader. Its good when the spring is used in web project.
+ In this case just add the following dependency to the project (both client and server modules):
  
- Just add it before the specification, and it will work
  
- _Note_: By default the annotation uses a special Web Application Context provider that will work only in the case of web applications running spring.
- Its possible to supply another way to obtain the Spring's ApplicationContext, just implement the interface 
+   
+   <dependency>
+     <groupId>org.rtest</groupId>
+     <artifactId>rtest-framework-spring-integration-web</artifactId>
+     <version>${rtest.version}</version>
+   </dependency>
+   
+   
+* Use the spring core integration for non-web applications
+  In this case use the following annotation:
+  
+   <dependency>
+       <groupId>org.rtest</groupId>
+       <artifactId>rtest-framework-spring-integration-core</artifactId>
+       <version>${rtest.version}</version>
+   </dependency>
+    
+   
+   
+_Note_: Since rtest-framework-spring-integration-web depends on rtest-framework-spring-integration-core it will be added transitively when
+declaring a dependency on web framework part
+
+
+Now, when working with spring web integration, the following annotation has to be placed on the Specification:
+
+    org.rtest.integration.spring.api.SpringIntegrated(WebApplicationContextProvider)
  
-    org.rtest.spock.spring.integration.api.ApplicationContextProvider
+This will cause the framework to connect to an existing application context on server
+ 
+ _Note_: If the application doesn't work with web, there is no place that the framework can retrieve 
+ an existing application context from. In this case its the responsibility of the application so supply an application context
+ 
+ For doing this, one has to implement the following interface 
+   
+    org.rtest.integration.spring.api.ApplicationContextProvider
     
 
 And pass this implementation to the value attribute inside "SpringIntegrated" annotation.

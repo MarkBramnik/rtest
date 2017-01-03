@@ -19,6 +19,7 @@
   </properties>
   <modules>
      <module>rtest-framework</module>
+     <module>rtest-framework-spring-integration</module>
 	 <module>rtest-testapp</module>
      <module>rtest-webapp-testapp</module>
   </modules>

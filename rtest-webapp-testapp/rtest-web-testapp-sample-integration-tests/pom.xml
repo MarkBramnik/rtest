@@ -14,7 +14,7 @@
         <dependency>
             <groupId>org.rtest</groupId>
             <artifactId>rtest-web-testapp-spring-beans</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -29,7 +29,12 @@
         <dependency>
             <groupId>org.rtest</groupId>
             <artifactId>rtest-framework</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.rtest</groupId>
+            <artifactId>rtest-framework-spring-integration-web</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
