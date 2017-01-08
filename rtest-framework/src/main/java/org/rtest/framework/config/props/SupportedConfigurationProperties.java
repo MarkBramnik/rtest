@@ -10,5 +10,6 @@ public interface SupportedConfigurationProperties {
         String SERVER_PORT = "rtest.client.serverPort";
         String SERVER_HOST = "rtest.client.serverHost";
         String REPORT_DIR  = "rtest.client.reportDir";
+        String MAX_CONNECTION_WAIT_PERIOD = "rtest.client.maxConnectionWaitPeriodMs";
     }
 }
