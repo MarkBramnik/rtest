@@ -57,6 +57,12 @@
             <version>${log4j.version}</version>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
